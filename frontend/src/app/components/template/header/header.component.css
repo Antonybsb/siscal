@@ -1,0 +1,21 @@
+.header {
+ display: flex;   
+ flex-direction: column;
+ flex-wrap: wrap;
+}
+
+.container {
+    justify-content: space-between;
+    background-image: linear-gradient(to right, #04D9D9, #049DD9, #0487D9, #0476D9) !important;
+}
+
+span {
+    margin-left: 50px;
+    font-size: 36px;
+    text-shadow: 2px 2px 6px black;
+    
+}
+
+button {
+    margin-right: 50px;
+}

@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Color Theme Swatches in Hex */
+.beautiful-sandy-beach-and-soft-blue-ocean-wave-1-hex { color: #5BC2D9; }
+.beautiful-sandy-beach-and-soft-blue-ocean-wave-2-hex { color: #A7E4F2; }
+.beautiful-sandy-beach-and-soft-blue-ocean-wave-3-hex { color: #66CDD9; }
+.beautiful-sandy-beach-and-soft-blue-ocean-wave-4-hex { color: #D9BBA0; }
+.beautiful-sandy-beach-and-soft-blue-ocean-wave-5-hex { color: #F2D5BB; }
+
+
+
+/* Color Theme Swatches in Hex */
+.Tropical-beach-in-the-Maldives-1-hex { color: #0476D9; }
+.Tropical-beach-in-the-Maldives-2-hex { color: #0487D9; }
+.Tropical-beach-in-the-Maldives-3-hex { color: #049DD9; }
+.Tropical-beach-in-the-Maldives-4-hex { color: #04D9D9; }
+.Tropical-beach-in-the-Maldives-5-hex { color: #6F7302; }
+
+
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

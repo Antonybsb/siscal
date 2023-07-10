@@ -1,0 +1,73 @@
+<form class="formPesquisa">
+  <mat-form-field>
+    <mat-label>Ano</mat-label>
+    <mat-select [(ngModel)]="anoSelecionado" name="ano">
+      <mat-option *ngFor="let ano of anos" [value]="ano">
+        {{ ano }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Departamento</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let sigla of siglas" [value]="sigla">
+        {{ sigla }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <Table>
+    <ng-container *ngFor="let mes of meses">
+      <thead>
+        <tr>
+          <th [attr.colspan]="diasDoMes.length + 1">{{ mesesDoAno[mes - 1] }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Nome</td>
+          <ng-container *ngFor="let dia of diasDoMes">
+            <td>{{ dia.dia }}</td>
+          </ng-container>
+        </tr>
+        <ng-container *ngFor="let nomeServidor of getNomeServidores">
+          <tr>
+            <td>{{ nomeServidor }}</td>
+            <ng-container *ngFor="let dia of diasDoMes">
+              <td>{{ dia.diaSemana }}</td>
+            </ng-container>
+          </tr>
+        </ng-container>
+      </tbody>
+    </ng-container>
+  </Table>
+
+
+
+
+
+
+
+  <!--
+  <mat-form-field>
+    <mat-label>Divisão</mat-label>
+    <mat-select [(ngModel)]="divisaoSelecionada" name="divisaoSelecionada">
+      <mat-option *ngFor="let divisao of divisoes" [value]="divisao.sigla">
+        {{ divisao.sigla }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  -->
+  
+    
+  
+  
+</form>
+
+
+
+<!--
+  <div [innerHTML]="homeModel.calendarioMes"></div>
+-->
