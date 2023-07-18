@@ -1,24 +1,134 @@
-.container {
+/* .container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 20px;
-}
+} */
 
 table {
-    width: 40%;
+    display: flex;
+    flex-direction: row;
     margin-top: 10px;
 }
 
-table, th, td{
+/* table, th, td{
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    border: 1px solid;
+    border-collapse: collapse;
+    font-size: 10px;
+} */
+
+th {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    text-align: center;
+    height: 40px;
+    font-size: 20px;
+}
+
+.form-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+    margin-left: 40px;
+
+}
+
+.afastamentos {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 15px;
+    height: 90px;
+    margin-top: 10px;
+    border-radius: 0;
+    box-shadow: none;
+    border-top: 1px solid #eaeaea;
+    border-bottom: solid 1px #eaeaea;
+}
+
+.selectDepartamento {
+    margin-left: 10px;
+}
+
+.btnBuscar {
+    margin-left: 10px;
+    background-color: #0476D9 !important;
+    color: white !important;
+}
+
+.conteudoAfastamentos {
+    display: flex;
+    justify-content: flex-start;
+    margin-right: 40px;
+}
+
+.material-icons {
+    font-size: 16px;
+}
+
+
+.feriasAnoCorrente {
+    background-color: #0476D9;
+    color: white;
+    font-size: 14px;
+    border: none;
+    text-align: center;
+    padding: 5px;
+}
+
+.anoAnterior {
+    background-color: #F57A18;
+    color: white;
+    font-size: 14px;
+    border: none;
+    text-align: center;
+    padding: 5px;
+}
+
+.licensaCapacitacao {
+    background-color: #B300F5;
+    color: white;
+    font-size: 14px;
+    border: none;
+    text-align: center;
+    padding: 5px;
+}
+
+.naoHomologadas {
+    background-color: #8fca10;
+    color: white;
+    font-size: 14px;
+    border: none;
+    text-align: center;
+    padding: 5px;
+}
+
+.bancoDeHoras {
+    background-color: #0CD7F5;
+    color: white;
+    font-size: 14px;
+    border: none;
+    text-align: center;
+    padding: 5px;
+}
+
+.cardTable {
+    margin-top: 10px;
+}
+
+.table-container, td, tr {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
     border: 1px solid;
     border-collapse: collapse;
     font-size: 10px;
 }
 
-th {
-    text-align: center;
-    height: 40px;
-    font-size: 20px;
+.table-container, th {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    border: none;
+    text-shadow: none;
 }
+

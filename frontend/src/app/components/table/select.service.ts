@@ -15,6 +15,7 @@ export class SelectService {
     const anos: number[] = [];
     for (let ano = this.anoInicio; ano <= this.anoFim; ano++) {
       anos.push(ano);
+      
     }
     return of(anos);
   }
@@ -23,6 +24,7 @@ export class SelectService {
     return this.http.get<string[]>(`${this.baseUrl}/siglas`)
     .pipe(
       tap(siglas => console.log(siglas))
+      
     )
         
   }

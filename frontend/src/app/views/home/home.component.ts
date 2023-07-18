@@ -1,189 +1,106 @@
-import { CalendarioService } from 'src/app/components/table/calendario.service';
-import { HomeModel } from './../models/home-model';
+// import { CalendarioService } from 'src/app/components/table/calendario.service';
+import { HomeModel } from "./../models/home-model";
 import { Component, OnInit } from "@angular/core";
-import { SelectService } from 'src/app/components/table/select.service';
+import { SelectService } from "src/app/components/table/select.service";
 
 interface Departamento {
   value: string;
   viewValue: string;
 }
 
+interface DiaSemana {
+  dia: number;
+  diaSemana: string;
+}
+
+interface Mes {
+  nome: string;
+  semanas: DiaSemana[][];
+}
 
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.css"],
-  
 })
-
-
 export class HomeComponent implements OnInit {
-
- 
+  meses!: Mes[];
   anos: number[] = [];
   siglas: string[] = [];
   anoSelecionado!: number;
-  siglaSelecionada: string = '';
+  siglaSelecionada: string = "";
   codigoSelecionado!: number;
-  meses: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  codigo: number[] = [];
   getNomeServidores: string[] = [];
-  calendarios: string[][] = [];
-  diasDoMes: Array<{ dia: number; diaSemana: string; }> = [];
-  mesesDoAno: string[] = [];
-  exibirApenasJaneiro: boolean = true;
-  
-    
 
-  homeModel!: HomeModel;
-  calendarioMes!: string;
-  
+  constructor(
+    private selectService: SelectService
+  ) {}
 
-  constructor(private calendarioService: CalendarioService, private selectService: SelectService) {
-    
-    
-    
-  }
-
- 
   ngOnInit(): void {
     this.carregarAnos();
-    this.carregarDiasDoMes();
     this.carregarDivisoes();
     this.carregarNomeServidores();
-    this.carregarNomeMeses();
-    this.carregarTodosMeses();
-    
+    const ano = 2023;
+    this.meses = this.gerarMeses(ano);
 
-    
-    
+  }
 
-  const numeroDoMes = 6; // Defina o número do mês desejado
-  const calendarioMes = this.calendarioService.geraCalendarioMes(numeroDoMes);
-  this.homeModel = { calendarioMes };
+  gerarMeses(ano: number): Mes[] {
+    const meses: Mes[] = [];
 
-  
+    for (let mes = 0; mes < 12; mes++) {
+      const dataInicial = new Date(ano, mes, 1);
+      const nomeMes = dataInicial
+        .toLocaleString("default", { month: "long" })
+        .toLocaleUpperCase();
+      const numeroDias = new Date(ano, mes + 1, 0).getDate();
 
-  
+      const semanas: DiaSemana[][] = [];
+      let semana: DiaSemana[] = [];
+
+      let dia = 1;
+      while (dia <= numeroDias) {
+        const data = new Date(ano, mes, dia);
+        const diaSemana = data.toLocaleString("default", { weekday: "narrow" });
+        semana.push({ dia, diaSemana });
+
+        if (data.getDay() === 6 || dia === numeroDias) {
+          semanas.push(semana);
+          semana = [];
+        }
+
+        dia++;
+      }
+
+      meses.push({ nome: nomeMes, semanas });
+    }
+
+    return meses;
   }
 
   carregarAnos() {
     this.selectService.getAnos().subscribe((anos: number[]) => {
       this.anos = anos;
-      this.anoSelecionado = anos[0]
-    })
-  }
-
-  carregarDiasDoMes(): void {
-    const dataAtual = new Date();
-    const ultimoDiaDoMes = new Date(dataAtual.getFullYear(), dataAtual.getMonth() + 1, 0).getDate();
-
-    for (let dia = 1; dia <= ultimoDiaDoMes; dia++) {
-      // const data = new Date(dataAtual.getFullYear(), dataAtual.getMonth(), dia);
-      const diaSemana = this.obterDiaSemana(dataAtual.getFullYear(), dataAtual.getMonth(), dia);
-      this.diasDoMes.push({ dia, diaSemana });
-      
-    }
-  }
-
-  obterDiaSemana(ano: number, mes: number, dia: number): string {
-    const data = new Date(ano, mes, dia);
-    const diaSemana = ['D', 'S','T', 'Q','Q', 'S','S'];
-    return diaSemana[data.getDay()];
-  }
-
-  carregarNomeMeses(): void {
-    const nomesMeses = [
-      'JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO', 'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO'
-    ];
-
-    this.mesesDoAno = nomesMeses;
-    console.log(this.mesesDoAno);
-  }
-
-  carregarTodosMeses(): void {
-    this.selectService.getNomeServidores().subscribe(nomes => {
-      for (const nomeServidor of nomes) {
-        const calendarioMeses: string[] = [];
-        for (let j = 1; j <= 12; j++) {
-          const calendarioMes = this.obterCalendarioMes(j, nomeServidor);
-          calendarioMeses.push(calendarioMes);
-        }
-        this.calendarios.push(calendarioMeses);
-      }
+      this.anoSelecionado = anos[0];
     });
   }
 
-  // carregarDiasDoMes() {
-  //   const dataAtual = new Date();
-  //   const ultimoDiaDoMes = new Date(dataAtual.getFullYear(), dataAtual.getMonth() + 1,0).getDate();
-
-  //   for (let dia = 1; dia <= ultimoDiaDoMes; dia++) {
-  //     this.diasDoMes.push(dia);
-  //   }
-  // }
-
-
 
   carregarNomeServidores() {
-    this.selectService.getNomeServidores().subscribe(nomes => {
-      for (const nomeServidor of nomes) {
-        const calendarioMeses: string[] = [];
-        for (let j = 1; j <= 12; j++) {
-          const calendarioMes = this.obterCalendarioMes(j, nomeServidor);
-          calendarioMeses.push(calendarioMes);
-        }
-        this.calendarios.push(calendarioMeses);
-        this.getNomeServidores = nomes;
-        console.log(nomeServidor);
-      }
+    this.selectService.getNomeServidores().subscribe((nomes) => {
+      this.getNomeServidores = nomes;
     });
   }
 
   carregarDivisoes(): void {
     this.selectService.getDivisoes().subscribe(
-      siglas => {
-    this.siglas = siglas;
-    console.log('Departamentos carregados:', this.siglas);
-    },
-    (error: any) => {
-      console.error('Ocorreu um erro o carregar os divisões:', error)
-    }
+      (siglas) => {
+        this.siglas = siglas;
+        console.log("Departamentos carregados:", this.siglas);
+      },
+      (error: any) => {
+        console.error("Ocorreu um erro ao carregar as divisões:", error);
+      }
     );
   }
-  
-
-  
-
-  
-
-  // carregarDivisoesPorCodigo(codigo: string): void {
-  //   this.selectService.getDivisoesPorCodigo().subscribe( 
-  //     divisoes => {
-  //     this.divisoes = divisoes;
-  //     console.log(this.codigo);
-  //   })
-  // }
- 
-  // carregarDadosServidores(): void {
-  //   const codigoDivisao = 415006200; // Código da divisão a ser buscado
-  //   this.calendarioService.getServidorCodigo(codigoDivisao).subscribe(servidores => {
-  //     this.calendarioService.servidores = servidores;
-  //   });
-  // }
-
-  // public obterCalendarioMes(numeroDoMes: number): string {
-  //   const calendario = this.calendarioService.geraCalendarioMes(numeroDoMes);
-  //   const calendarioFormatado = `<table>${calendario}</table>`;
-  //   return calendarioFormatado;
-  // }
-
-  public obterCalendarioMes(numeroDoMes: number, nomeServidor: string, ): string {
-    const calendario = this.calendarioService.geraCalendarioMes(numeroDoMes);
-    return calendario;
-  }
-
-
-
- 
 }

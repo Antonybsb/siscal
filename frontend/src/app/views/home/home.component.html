@@ -1,73 +1,98 @@
-<form class="formPesquisa">
-  <mat-form-field>
-    <mat-label>Ano</mat-label>
-    <mat-select [(ngModel)]="anoSelecionado" name="ano">
-      <mat-option *ngFor="let ano of anos" [value]="ano">
-        {{ ano }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+<form>
+  <mat-card class="afastamentos">
+    <div class="form-container">
+      <mat-form-field>
+        <mat-label>Ano</mat-label>
+        <mat-select [(ngModel)]="anoSelecionado" name="ano">
+          <mat-option *ngFor="let ano of anos" [value]="ano">
+            {{ ano }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Departamento</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let sigla of siglas" [value]="sigla">
-        {{ sigla }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+      <mat-form-field class="selectDepartamento">
+        <mat-label>Departamento</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let sigla of siglas" [value]="sigla">
+            {{ sigla }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button class="btnBuscar" mat-raised-button>Buscar</button>
+    </div>
 
+    <div class="afastamentosContainer">
+      <mat-card-content class="conteudoAfastamentos">
+        <td class="feriasAnoCorrente">
+          <a>
+            <i class="material-icons"> card_travel </i>
+            Ferias Ano Corrente
+          </a>
+        </td>
+        <td class="anoAnterior">
+          <a>
+            <i class="material-icons"> card_travel </i>
+            Ferias Ano Anterior
+          </a>
+        </td>
+        <td class="licensaCapacitacao">
+          <a>
+            <i class="material-icons"> school </i>
+            Licensa Capacitação
+          </a>
+        </td>
+        <td class="naoHomologadas">
+          <a>
+            <i class="material-icons"> event_busy </i>
+            Não Homologadas
+          </a>
+        </td>
+        <td class="bancoDeHoras">
+          <a>
+            <i class="material-icons"> work_history </i>
+            Banco de Horas
+          </a>
+        </td>
+      </mat-card-content>
+    </div>
+  </mat-card>
 
-  <Table>
-    <ng-container *ngFor="let mes of meses">
-      <thead>
-        <tr>
-          <th [attr.colspan]="diasDoMes.length + 1">{{ mesesDoAno[mes - 1] }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Nome</td>
-          <ng-container *ngFor="let dia of diasDoMes">
-            <td>{{ dia.dia }}</td>
-          </ng-container>
-        </tr>
-        <ng-container *ngFor="let nomeServidor of getNomeServidores">
-          <tr>
-            <td>{{ nomeServidor }}</td>
-            <ng-container *ngFor="let dia of diasDoMes">
-              <td>{{ dia.diaSemana }}</td>
+  
+
+  <mat-card class="cardTable">
+    <mat-card-content>
+      <div class="table-container">
+        <ng-container *ngFor="let mes of meses">
+          <thead>
+            <tr>
+              <!-- Defina o número total de células (dias) no mês -->
+              <th [attr.colspan]="mes.semanas.flat().length + 1">
+                {{ mes.nome }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Nome</td>
+              <ng-container *ngFor="let semana of mes.semanas">
+                <ng-container *ngFor="let dia of semana">
+                  <td>{{ dia.diaSemana }}</td>
+                </ng-container>
+              </ng-container>
+            </tr>
+            <ng-container *ngFor="let nomeServidor of getNomeServidores">
+              <tr>
+                <td>{{ nomeServidor }}</td>
+                <ng-container *ngFor="let semana of mes.semanas">
+                  <ng-container *ngFor="let dia of semana">
+                    <td>{{ dia.dia }}</td>
+                  </ng-container>
+                </ng-container>
+              </tr>
             </ng-container>
-          </tr>
-        </ng-container>
-      </tbody>
-    </ng-container>
-  </Table>
-
-
-
-
-
-
-
-  <!--
-  <mat-form-field>
-    <mat-label>Divisão</mat-label>
-    <mat-select [(ngModel)]="divisaoSelecionada" name="divisaoSelecionada">
-      <mat-option *ngFor="let divisao of divisoes" [value]="divisao.sigla">
-        {{ divisao.sigla }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  -->
-  
-    
-  
-  
+          </tbody></ng-container
+        >
+      </div>
+    </mat-card-content>
+  </mat-card>
 </form>
-
-
-
-<!--
-  <div [innerHTML]="homeModel.calendarioMes"></div>
--->
