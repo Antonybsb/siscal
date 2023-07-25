@@ -132,3 +132,11 @@ th {
     text-shadow: none;
 }
 
+.day-cell {
+    background-color: rgb(255, 255, 255); /* Cor de fundo padrão para todos os dias */
+  }
+  
+  .day-cell.weekend {
+    background-color: #818181; /* Cor de fundo para finais de semana (sábado e domingo) */
+  }
+

@@ -12,11 +12,15 @@ interface Departamento {
 interface DiaSemana {
   dia: any;
   diaSemana: string;
+  
+  
+  
 }
 
 interface Mes {
   nome: string;
   semanas: DiaSemana[][];
+  
 }
 
 @Component({
@@ -35,6 +39,7 @@ export class HomeComponent implements OnInit {
   getNomeServidores: string[] = [];
   codigoDepartamentoSelecionado: string = '';
   
+  
 
   constructor(
     private selectService: SelectService
@@ -50,6 +55,7 @@ export class HomeComponent implements OnInit {
     const codigoDepartamentoInicial = '415006200'; // Coloque aqui o código do departamento inicial como string
     this.carregarServidoresPorSigla(codigoDepartamentoInicial);
   }
+
 
   gerarMeses(ano: number): Mes[] {
     const meses: Mes[] = [];
@@ -163,8 +169,7 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  //Até aqui
-
+  
   carregarServidoresPorSigla(sigla: string): void {
     this.selectService.getServidoresPorSigla(sigla).subscribe(
       (servidores: string[]) => {
@@ -258,4 +263,10 @@ export class HomeComponent implements OnInit {
     );
     return afastamento ? afastamento.feriasTipoAfastamento.descricao : 'Sem afastamento';
   }
+
+  isWeekend(diaSemana: string): boolean {
+    return diaSemana === 'S' || diaSemana === 'D';
+  }
+
+  
 }
