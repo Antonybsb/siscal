@@ -2,6 +2,7 @@
 import { HomeModel } from "./../models/home-model";
 import { Component, OnInit } from "@angular/core";
 import { SelectService } from "src/app/components/table/select.service";
+import { Afastamentos } from "../models/afastamentos";
 
 interface Departamento {
   value: string;
@@ -9,7 +10,7 @@ interface Departamento {
 }
 
 interface DiaSemana {
-  dia: number;
+  dia: any;
   diaSemana: string;
 }
 
@@ -24,6 +25,7 @@ interface Mes {
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
+  afastamentos: Afastamentos[] = [];
   meses!: Mes[];
   anos: number[] = [];
   siglas: string[] = [];
@@ -40,8 +42,8 @@ export class HomeComponent implements OnInit {
     this.carregarAnos();
     this.carregarDivisoes();
     this.carregarNomeServidores();
-    const ano = 2023;
-    this.meses = this.gerarMeses(ano);
+    this.onAnoSelecionadoChange(); // Para carregar os meses iniciais
+    this.buscarAfastamentosPorAnoESigla(); // Buscar afastamentos iniciais
 
   }
 
@@ -81,9 +83,44 @@ export class HomeComponent implements OnInit {
   carregarAnos() {
     this.selectService.getAnos().subscribe((anos: number[]) => {
       this.anos = anos;
-      this.anoSelecionado = anos[0];
+      if (!this.anoSelecionado) {
+        const anoAtual = new Date().getFullYear();
+        this.anoSelecionado = this.anos.includes(anoAtual) ? anoAtual : this.anos[0];
+      }
     });
   }
+
+  onAnoSelecionadoChange(): void {
+    // Carregar os meses do ano selecionado
+    this.meses = this.gerarMeses(this.anoSelecionado);
+
+    // Verifica se tanto o ano como a sigla estão selecionados
+    if (this.anoSelecionado && this.siglaSelecionada) {
+      // Chama a função para buscar os afastamentos com base no ano e sigla selecionados
+      this.buscarAfastamentos(this.anoSelecionado, this.siglaSelecionada);
+    }
+  }
+
+  onSiglaSelecionadaChange(): void {
+    // Verifica se tanto o ano como a sigla estão selecionados
+    if (this.anoSelecionado && this.siglaSelecionada) {
+      // Chama a função para buscar os afastamentos com base no ano e sigla selecionados
+      this.buscarAfastamentos(this.anoSelecionado, this.siglaSelecionada);
+    }
+  }
+
+  buscarAfastamentosPorAnoESigla(): void {
+    // Verifica se tanto o ano como a sigla estão selecionados
+    if (this.anoSelecionado && this.siglaSelecionada) {
+      // Chama a função para buscar os afastamentos com base no ano e sigla selecionados
+      this.buscarAfastamentos(this.anoSelecionado, this.siglaSelecionada);
+    }
+  }
+
+  
+  
+
+  
 
 
   carregarNomeServidores() {
@@ -102,5 +139,85 @@ export class HomeComponent implements OnInit {
         console.error("Ocorreu um erro ao carregar as divisões:", error);
       }
     );
+  }
+
+  carregarServidoresPorSigla(sigla: string): void {
+    this.selectService.getServidoresPorSigla(sigla).subscribe(
+      (servidores: string[]) => {
+        this.getNomeServidores = servidores;
+      },
+      (error: any) => {
+        console.error("Ocorreu um erro ao carregar os servidores:", error);
+      }
+    );
+  }
+
+  buscarAfastamentos(ano: number, sigla: string): void {
+    this.selectService.buscarAfastamentosPorAnoESigla(ano, sigla).subscribe(
+      (afastamentos: Afastamentos[]) => {
+        this.afastamentos = afastamentos;
+        this.meses = this.gerarMeses(ano);
+        console.log("Afastamentos por matrícula", this.afastamentos);
+      },
+      (error: any) => {
+        console.error('Ocorreu um erro ao buscar os afastamentos:', error);
+      }
+    );
+  }
+
+  verificarAfastamento(dia: string, nomeServidor: string): boolean {
+    const afastamentosDoServidor = this.afastamentos.filter(
+      (afastamento) => afastamento.servidor.toString() === nomeServidor
+    );
+    const dataDia = new Date(dia);
+    return afastamentosDoServidor.some(
+      (afastamento) => {
+        return dataDia >= afastamento.gozoDataInicio && dataDia <= afastamento.gozoDataFim;
+      }
+    );
+  }
+
+  getTipoAfastamento(dia: string, nomeServidor: string): string {
+    const afastamentosDoServidor = this.afastamentos.filter(
+      (afastamento) => afastamento.servidor.toString() === nomeServidor
+    );
+    const dataDia = new Date(dia);
+    const afastamento = afastamentosDoServidor.find(
+      (afastamento) => {
+        return dataDia >= afastamento.gozoDataInicio && dataDia <= afastamento.gozoDataFim;
+      }
+    );
+    return afastamento ? afastamento.feriasTipoAfastamento.descricao : '';
+  }
+
+  getAfastamentoColor(dia: string, nomeServidor: string): string {
+    const afastamentosDoServidor = this.afastamentos.filter(
+      (afastamento) => afastamento.servidor.toString() === nomeServidor
+    );
+    const dataDia = new Date(dia);
+    const afastamento = afastamentosDoServidor.find(
+      (afastamento) => {
+        return dataDia >= afastamento.gozoDataInicio && dataDia <= afastamento.gozoDataFim;
+      }
+    );
+
+    if (afastamento) {
+      switch (afastamento.feriasTipoAfastamento.idTipoAfastamento) {
+        case 1:
+          return 'blue'; // Férias do ano corrente
+        case 2:
+          return 'orange'; // Férias do ano anterior
+        case 3:
+          return 'purple'; // Licença capacitação
+        case 4:
+          return 'green'; // Não homologadas
+        case 5:
+          return 'lightblue'; // Banco de horas
+        default:
+          return 'transparent'; // Caso não corresponda a nenhum tipo conhecido
+      }
+    }
+
+    return 'transparent'; // Caso não haja afastamento nesse dia para esse servidor
   }
 }

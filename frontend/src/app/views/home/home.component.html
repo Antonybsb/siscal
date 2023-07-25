@@ -3,22 +3,22 @@
     <div class="form-container">
       <mat-form-field>
         <mat-label>Ano</mat-label>
-        <mat-select [(ngModel)]="anoSelecionado" name="ano">
-          <mat-option *ngFor="let ano of anos" [value]="ano">
-            {{ ano }}
-          </mat-option>
+        <mat-select [(ngModel)]="anoSelecionado" name="anoSelecionado" (selectionChange)="onAnoSelecionadoChange()">
+          <mat-option *ngFor="let ano of anos" [value]="ano">{{ ano }}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field class="selectDepartamento">
         <mat-label>Departamento</mat-label>
-        <mat-select>
+        <mat-select [(ngModel)]="siglaSelecionada" name="siglaSelecionada" (selectionChange)="onSiglaSelecionadaChange()">
           <mat-option *ngFor="let sigla of siglas" [value]="sigla">
             {{ sigla }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <button class="btnBuscar" mat-raised-button>Buscar</button>
+      <button class="btnBuscar" mat-raised-button (click)="buscarAfastamentosPorAnoESigla()">
+        Buscar
+      </button>
     </div>
 
     <div class="afastamentosContainer">
@@ -85,14 +85,21 @@
                 <td>{{ nomeServidor }}</td>
                 <ng-container *ngFor="let semana of mes.semanas">
                   <ng-container *ngFor="let dia of semana">
-                    <td>{{ dia.dia }}</td>
+                    <td [ngStyle]="{ 'background-color': getAfastamentoColor(dia.dia, nomeServidor) }">
+                      {{ dia.dia }}
+                      <br />
+                      {{ getTipoAfastamento(dia.dia, nomeServidor) }}
+                    </td>
                   </ng-container>
                 </ng-container>
               </tr>
             </ng-container>
-          </tbody></ng-container
-        >
+          </tbody>
+        </ng-container>
       </div>
     </mat-card-content>
   </mat-card>
+  
+  
+  
 </form>

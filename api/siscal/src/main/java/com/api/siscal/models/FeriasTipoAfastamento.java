@@ -18,6 +18,10 @@ public class FeriasTipoAfastamento {
     @OneToMany
     private List<FeriasAfastamento> feriasAfastamentos;
 
+    public FeriasTipoAfastamento() {
+        
+    }
+
     public FeriasTipoAfastamento(int idTipoAfastamento, String descricao) {
         this.idTipoAfastamento = idTipoAfastamento;
         this.descricao = descricao;

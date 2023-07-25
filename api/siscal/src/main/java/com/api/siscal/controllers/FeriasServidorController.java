@@ -1,11 +1,11 @@
 package com.api.siscal.controllers;
 
+import com.api.siscal.models.FeriasAfastamento;
 import com.api.siscal.services.FeriasServidorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -55,6 +55,14 @@ public class FeriasServidorController {
         List<String> nomes = feriasServidorService.getServidoresCodigo(codigo);
         return ResponseEntity.ok(nomes);
     }
+
+//    @GetMapping("/{servidorId}/tipos-afastamentos")
+//    public ResponseEntity<List<String>> obterTiposAfastamentos(@PathVariable int servidorId) {
+//        List<String> tiposAfastamentos = feriasServidorService.obterTiposAfastamentosPorServidor(servidorId);
+//        return ResponseEntity.ok(tiposAfastamentos);
+//    }
+
+
 
 
     }

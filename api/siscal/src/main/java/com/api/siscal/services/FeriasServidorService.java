@@ -1,10 +1,13 @@
 package com.api.siscal.services;
 
+import com.api.siscal.models.FeriasAfastamento;
+import com.api.siscal.repositories.FeriasAfastamentoRepository;
 import com.api.siscal.repositories.FeriasServidorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -12,9 +15,11 @@ public class FeriasServidorService {
 
     @Autowired
     FeriasServidorRepository feriasServidorRepository;
+    FeriasAfastamentoRepository afastamentosRepository;
 
-    public FeriasServidorService(FeriasServidorRepository feriasServidorRepository) {
+    public FeriasServidorService(FeriasServidorRepository feriasServidorRepository, FeriasAfastamentoRepository afastamentosRepository) {
         this.feriasServidorRepository = feriasServidorRepository;
+        this.afastamentosRepository = afastamentosRepository;
     }
 
     public List<String> getServidorDivisao() {
@@ -34,6 +39,20 @@ public class FeriasServidorService {
     public List<String> getServidoresCodigo(BigDecimal codigo) {
         return feriasServidorRepository.getServidorCodigo(codigo);
     }
+
+//    public List<String> obterTiposAfastamentosPorServidor(int servidorId) {
+//        List<FeriasAfastamento> afastamentos = afastamentosRepository.findByServidor(servidorId);
+//        List<String> tiposAfastamenos = new ArrayList<>();
+//        for (FeriasAfastamento afastamento : afastamentos) {
+//            String tipoAfastamento = afastamento.getFeriasTipoAfastamento().getDescricao();
+//            tiposAfastamenos.add(tipoAfastamento);
+//        }
+//        return tiposAfastamenos;
+//    }
+
+
+
+
 
 
 

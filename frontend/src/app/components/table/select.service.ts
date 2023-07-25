@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { FeriasServidorDto } from 'src/app/views/models/ferias-servidor-dto';
+import { Afastamentos } from 'src/app/views/models/afastamentos';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,7 @@ export class SelectService {
   }
 
   getServidoresPorSigla(sigla: string): Observable<string[]> {
+    const url = `${this.baseUrl}/departamentos/${sigla}/servidores`;
     return this.http.get<string[]>(`${this.baseUrl}`)
   }
 
@@ -50,6 +52,16 @@ export class SelectService {
 
   carregarServidoresPorCodigo(codigo: number): Observable<string[]> {
     return this.http.get<string[]>(`${this.baseUrl}/divisao/${codigo}`);
+  }
+
+  buscarAfastamentoPorMatricula(matricula: number): Observable<Afastamentos[]> {
+    const url = `${this.baseUrl}/${matricula}/afastamentos`;
+    return this.http.get<Afastamentos[]>(url);
+  }
+
+  buscarAfastamentosPorAnoESigla(ano: number, sigla: string): Observable<Afastamentos[]> {
+    const url = `${this.baseUrl}/${ano}/afastamentos/${sigla}`;
+    return this.http.get<Afastamentos[]>(url);
   }
 
   

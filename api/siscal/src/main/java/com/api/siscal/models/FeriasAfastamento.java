@@ -8,31 +8,37 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "FERIAS_AFASTAMENTOS")
+@IdClass(FeriasAfastamentoPK.class)
 public class FeriasAfastamento {
-    @Id
-    @Column(name = "TIPO_AFASTAMENTO")
-    private int idTipoAafastamento;
 
-    @Column(name = "SERVIDOR")
+    @Column(name = "TIPO_AFASTAMENTO")
+    private String idTipoAafastamento;
+
+    @Id
+    @Column(name = "servidor")
     private int servidor;
 
-    @Column(name = "EXERCICIO_ANO")
+    @Column(name = "ExercicioAno")
     private int exercicioAno;
-
-    @Column(name = "GOZO_DATA_INICIO")
+    @Id
+    @Column(name = "GozoDataInicio")
     private Date gozoDataInicio;
-
-    @Column(name = "GOZO_DATA_FIM")
+    @Id
+    @Column(name = "GozoDataFim")
     private Date gozoDataFim;
 
-    @Column(name = "STATUS_HOMOLOGACAO")
+    @Column(name = "statusHomologacao")
     private String statusHomologacao;
 
     @ManyToOne
-    @JoinColumn(name = "ID_TIPO_AFASTAMENTO")
+    @JoinColumn(name = "id_tipo_afastamento")
     private FeriasTipoAfastamento feriasTipoAfastamento;
 
-    public FeriasAfastamento(int idTipoAafastamento, int servidor, int exercicioAno, Date gozoDataInicio, Date gozoDataFim, String statusHomologacao, FeriasTipoAfastamento feriasTipoAfastamento) {
+    public FeriasAfastamento() {
+
+    }
+
+    public FeriasAfastamento(String idTipoAafastamento, int servidor, int exercicioAno, Date gozoDataInicio, Date gozoDataFim, String statusHomologacao, FeriasTipoAfastamento feriasTipoAfastamento) {
         this.idTipoAafastamento = idTipoAafastamento;
         this.servidor = servidor;
         this.exercicioAno = exercicioAno;
@@ -43,7 +49,11 @@ public class FeriasAfastamento {
     }
 
 
-    public void setIdTipoAafastamento(int idTipoAafastamento) {
+    public String getIdTipoAafastamento() {
+        return idTipoAafastamento;
+    }
+
+    public void setIdTipoAafastamento(String idTipoAafastamento) {
         this.idTipoAafastamento = idTipoAafastamento;
     }
 

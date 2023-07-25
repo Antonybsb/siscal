@@ -38,6 +38,9 @@ public class FeriasServidor implements Serializable {
     @Column(name = "TIPO_SERVIDOR")
     private int tipoServidor;
 
+    public FeriasServidor() {
+
+    }
 
     public FeriasServidor(int servidor, String usuario, int matricula, String nome, String sigla, BigDecimal codigo, String descricao, int tipoServidor) {
         this.servidor = servidor;

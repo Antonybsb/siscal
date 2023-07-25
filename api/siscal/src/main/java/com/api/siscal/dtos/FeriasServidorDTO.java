@@ -1,5 +1,7 @@
 package com.api.siscal.dtos;
 
+import jakarta.persistence.Column;
+
 import java.math.BigDecimal;
 
 public class FeriasServidorDTO {
@@ -8,12 +10,14 @@ public class FeriasServidorDTO {
     private String sigla;
     private BigDecimal codigo;
     private int matricula;
+    private int servidor;
 
-    public FeriasServidorDTO(String nome, String sigla, BigDecimal codigo, int matricula) {
+    public FeriasServidorDTO(String nome, String sigla, BigDecimal codigo, int matricula, int servidor) {
         this.nome = nome;
         this.sigla = sigla;
         this.codigo = codigo;
         this.matricula = matricula;
+        this.servidor = servidor;
     }
 
     public String getNome() {
@@ -48,6 +52,13 @@ public class FeriasServidorDTO {
         this.matricula = matricula;
     }
 
+    public int getServidor() {
+        return servidor;
+    }
+
+    public void setServidor(int servidor) {
+        this.servidor = servidor;
+    }
 }
 
 
