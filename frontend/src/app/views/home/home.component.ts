@@ -33,6 +33,8 @@ export class HomeComponent implements OnInit {
   siglaSelecionada: string = "";
   codigoSelecionado!: number;
   getNomeServidores: string[] = [];
+  codigoDepartamentoSelecionado: string = '';
+  
 
   constructor(
     private selectService: SelectService
@@ -44,7 +46,9 @@ export class HomeComponent implements OnInit {
     this.carregarNomeServidores();
     this.onAnoSelecionadoChange(); // Para carregar os meses iniciais
     this.buscarAfastamentosPorAnoESigla(); // Buscar afastamentos iniciais
-
+  
+    const codigoDepartamentoInicial = '415006200'; // Coloque aqui o código do departamento inicial como string
+    this.carregarServidoresPorSigla(codigoDepartamentoInicial);
   }
 
   gerarMeses(ano: number): Mes[] {
@@ -102,18 +106,36 @@ export class HomeComponent implements OnInit {
   }
 
   onSiglaSelecionadaChange(): void {
-    // Verifica se tanto o ano como a sigla estão selecionados
-    if (this.anoSelecionado && this.siglaSelecionada) {
-      // Chama a função para buscar os afastamentos com base no ano e sigla selecionados
-      this.buscarAfastamentos(this.anoSelecionado, this.siglaSelecionada);
+    if (this.siglaSelecionada) {
+      // Verificar a opção selecionada e atribuir o código correto
+      if (this.siglaSelecionada === 'DTI/DO') {
+        this.codigoDepartamentoSelecionado = '415006400';
+      } else if (this.siglaSelecionada === 'DTI/DDS') {
+        this.codigoDepartamentoSelecionado = '415006200';
+      } else if (this.siglaSelecionada === 'DTI/DST') {
+        this.codigoDepartamentoSelecionado = '415006500';
+      } else {
+        // Opção inválida, você pode tratar esse caso se desejar
+        this.codigoDepartamentoSelecionado = '';
+      }
+  
+      // Carregar os servidores do departamento selecionado
+      this.carregarServidoresPorSigla(this.codigoDepartamentoSelecionado);
     }
   }
 
   buscarAfastamentosPorAnoESigla(): void {
-    // Verifica se tanto o ano como a sigla estão selecionados
     if (this.anoSelecionado && this.siglaSelecionada) {
-      // Chama a função para buscar os afastamentos com base no ano e sigla selecionados
-      this.buscarAfastamentos(this.anoSelecionado, this.siglaSelecionada);
+      this.selectService.buscarAfastamentosPorAnoESigla(this.anoSelecionado, this.siglaSelecionada).subscribe(
+        (afastamentos: Afastamentos[]) => {
+          this.afastamentos = afastamentos;
+          this.meses = this.gerarMeses(this.anoSelecionado);
+          this.getNomeServidores = afastamentos.map((afastamento) => afastamento.servidor.toString());
+        },
+        (error: any) => {
+          console.error('Ocorreu um erro ao buscar os afastamentos:', error);
+        }
+      );
     }
   }
 
@@ -141,6 +163,8 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  //Até aqui
+
   carregarServidoresPorSigla(sigla: string): void {
     this.selectService.getServidoresPorSigla(sigla).subscribe(
       (servidores: string[]) => {
@@ -151,6 +175,7 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+
 
   buscarAfastamentos(ano: number, sigla: string): void {
     this.selectService.buscarAfastamentosPorAnoESigla(ano, sigla).subscribe(
@@ -219,5 +244,18 @@ export class HomeComponent implements OnInit {
     }
 
     return 'transparent'; // Caso não haja afastamento nesse dia para esse servidor
+  }
+
+  getAfastamentoTooltip(dia: string, nomeServidor: string): string {
+    const afastamentosDoServidor = this.afastamentos.filter(
+      (afastamento) => afastamento.servidor.toString() === nomeServidor
+    );
+    const dataDia = new Date(dia);
+    const afastamento = afastamentosDoServidor.find(
+      (afastamento) => {
+        return dataDia >= afastamento.gozoDataInicio && dataDia <= afastamento.gozoDataFim;
+      }
+    );
+    return afastamento ? afastamento.feriasTipoAfastamento.descricao : 'Sem afastamento';
   }
 }

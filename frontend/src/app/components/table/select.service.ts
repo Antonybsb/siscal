@@ -35,8 +35,8 @@ export class SelectService {
   }
 
   getServidoresPorSigla(sigla: string): Observable<string[]> {
-    const url = `${this.baseUrl}/departamentos/${sigla}/servidores`;
-    return this.http.get<string[]>(`${this.baseUrl}`)
+    const url = `${this.baseUrl}/divisao/codigo/${sigla}`;
+  return this.http.get<string[]>(url);
   }
 
   getDivisoesPorCodigo(): Observable<FeriasServidorDto[]> {
@@ -50,8 +50,10 @@ export class SelectService {
     return this.http.get<number>(`${this.baseUrl}/divisao/codigo/${sigla}`)
   }
 
+  //Até aqui
+
   carregarServidoresPorCodigo(codigo: number): Observable<string[]> {
-    return this.http.get<string[]>(`${this.baseUrl}/divisao/${codigo}`);
+    return this.http.get<string[]>(`${this.baseUrl}/divisao/codigo/${codigo}`);
   }
 
   buscarAfastamentoPorMatricula(matricula: number): Observable<Afastamentos[]> {
