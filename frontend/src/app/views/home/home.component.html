@@ -58,6 +58,7 @@
   </mat-card>
 
   
+<div class="container">
 
   <mat-card class="cardTable">
     <mat-card-content>
@@ -73,7 +74,7 @@
           </thead>
           <tbody>
             <tr>
-              <td>Nome</td>
+              <td>NOME:</td>
               <ng-container *ngFor="let semana of mes.semanas">
                 <ng-container *ngFor="let dia of semana">
                   <td>{{ dia.diaSemana }}</td>
@@ -99,6 +100,7 @@
       </div>
     </mat-card-content>
   </mat-card>
+</div>
   
   
   

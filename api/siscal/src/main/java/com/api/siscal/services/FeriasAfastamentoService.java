@@ -22,6 +22,10 @@ public class FeriasAfastamentoService {
         return feriasAfastamentoRepository.findByMatricula(matricula);
     }
 
+    public List<FeriasAfastamento> buscarAfastamentosPorServidorEAno(int servidor, int ano) {
+        return feriasAfastamentoRepository.findByServidorAndExercicioAno(servidor, ano);
+    }
+
 
 
 

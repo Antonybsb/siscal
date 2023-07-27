@@ -33,6 +33,18 @@ public class FeriasAfastamentoController {
         }
     }
 
+    @GetMapping("/afastamentos/{servidor}/{ano}")
+    public ResponseEntity<List<FeriasAfastamento>> buscarAfastamentosPorServidorEAno(
+            @PathVariable int servidor, @PathVariable int ano
+    ) {
+        List<FeriasAfastamento> afastamentos = feriasAfastamentoService.buscarAfastamentosPorServidorEAno(servidor, ano);
+        if (afastamentos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(afastamentos);
+        }
+    }
+
 
 
 }

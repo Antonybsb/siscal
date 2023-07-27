@@ -117,6 +117,10 @@ th {
     margin-top: 10px;
 }
 
+/* .table-container{
+    background-color: #00f552;
+} */
+
 .table-container, td, tr {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     border: 1px solid;
@@ -139,4 +143,9 @@ th {
   .day-cell.weekend {
     background-color: #818181; /* Cor de fundo para finais de semana (sábado e domingo) */
   }
+
+  .finalSemana {
+    background-color: #e0e0e0; /* Cor cinza para os dias de final de semana */
+  }
+
 

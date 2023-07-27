@@ -13,4 +13,7 @@ import java.util.List;
 public interface FeriasAfastamentoRepository extends JpaRepository<FeriasAfastamento, FeriasAfastamentoPK> {
     @Query("SELECT af FROM FeriasAfastamento af WHERE af.servidor = :matricula")
     List<FeriasAfastamento> findByMatricula(@Param("matricula") int matricula);
+
+    @Query("SELECT afastamento FROM FeriasAfastamento afastamento WHERE afastamento.servidor = :servidor AND afastamento.exercicioAno = :ano")
+    List<FeriasAfastamento> findByServidorAndExercicioAno(@Param("servidor") int servidor, @Param("ano") int ano);
 }
