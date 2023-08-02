@@ -19,6 +19,8 @@
       <button class="btnBuscar" mat-raised-button (click)="buscarAfastamentosPorAnoESigla()">
         Buscar
       </button>
+
+      
     </div>
 
     <div class="afastamentosContainer">
@@ -74,7 +76,7 @@
           </thead>
           <tbody>
             <tr>
-              <td>NOME:</td>
+              <td>NOME</td>
               <ng-container *ngFor="let semana of mes.semanas">
                 <ng-container *ngFor="let dia of semana">
                   <td>{{ dia.diaSemana }}</td>

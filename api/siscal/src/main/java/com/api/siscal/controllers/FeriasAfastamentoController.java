@@ -2,10 +2,10 @@ package com.api.siscal.controllers;
 
 import com.api.siscal.models.FeriasAfastamento;
 import com.api.siscal.services.FeriasAfastamentoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -19,6 +19,17 @@ public class FeriasAfastamentoController {
 
     public FeriasAfastamentoController(FeriasAfastamentoService feriasAfastamentoService) {
         this.feriasAfastamentoService = feriasAfastamentoService;
+    }
+
+    @GetMapping("/afastamentos")
+    public ResponseEntity<List<FeriasAfastamento>> buscarAfastamentos() {
+        List<FeriasAfastamento> afastamentos = feriasAfastamentoService.buscarAfastamentos();
+
+        if (afastamentos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(afastamentos);
+        }
     }
 
     @GetMapping("/{matricula}/afastamentos")
@@ -44,6 +55,19 @@ public class FeriasAfastamentoController {
             return ResponseEntity.ok(afastamentos);
         }
     }
+
+    @GetMapping("/{ano}/afastamentos/{codigo}")
+    public ResponseEntity<List<FeriasAfastamento>> buscarAfastamentosPorAnoECodigo(@PathVariable int ano, @PathVariable BigDecimal codigo) {
+        List<FeriasAfastamento> afastamentos = feriasAfastamentoService.buscarAfastamentosPorAnoECodigo(ano, codigo);
+
+        if (afastamentos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(afastamentos);
+        }
+    }
+
+
 
 
 

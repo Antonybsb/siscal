@@ -12,6 +12,14 @@ export class SelectService {
   private anoFim = 2030;
   private baseUrl = 'http://localhost:8080/ferias-servidor'
 
+
+  buscarAfastamentos(): Observable<Afastamentos[]> {
+    const url = `${this.baseUrl}/afastamentos`;
+    return this.http.get<Afastamentos[]>(url);
+  }
+
+
+
   getAnos(): Observable<number[]> {
     const anos: number[] = [];
     for (let ano = this.anoInicio; ano <= this.anoFim; ano++) {
@@ -39,11 +47,16 @@ export class SelectService {
   return this.http.get<string[]>(url);
   }
 
-  getDivisoesPorCodigo(): Observable<FeriasServidorDto[]> {
-    return this.http.get<FeriasServidorDto[]>(`${this.baseUrl}/divisao/415006200`)
-    .pipe(
-      tap(codigo => console.log(codigo))
-    );
+  getDivisoesPorCodigo(codigoDepartamento: number): Observable<FeriasServidorDto[]> {
+    return this.http.get<FeriasServidorDto[]>(`${this.baseUrl}/divisao/${codigoDepartamento}`)
+      .pipe(
+        tap(divisoes => console.log(divisoes))
+      );
+  }
+
+  buscarServidoresPorDepartamento(codigoDepartamento: number): Observable<string[]> {
+    const url = `${this.baseUrl}/divisao/codigo/${codigoDepartamento}`;
+    return this.http.get<string[]>(url);
   }
 
   getCodigoPorSigla(sigla: string): Observable<number> {
@@ -66,9 +79,16 @@ export class SelectService {
     return this.http.get<Afastamentos[]>(url);
   }
 
-  
+  buscarAfastamentosPorAnoECodigo(ano: number, codigo: number): Observable<Afastamentos[]> {
+    const url = `${this.baseUrl}/${ano}/afastamentos/${codigo}`;
+    return this.http.get<Afastamentos[]>(url);
+  }
 
- 
+
+  buscarAfastamentosPorServidorEAno(servidor: number, ano: number): Observable<Afastamentos[]> {
+    const url = `${this.baseUrl}/${servidor}/afastamentos/${ano}`;
+    return this.http.get<Afastamentos[]>(url);
+  }
 
 
   constructor(private http: HttpClient) { }
