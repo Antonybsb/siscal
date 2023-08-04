@@ -1,4 +1,5 @@
 export interface Afastamentos {
+    codigo: number;
     idTipoAafastamento: string;
     servidor: number;
     exercicioAno: number;
@@ -8,5 +9,6 @@ export interface Afastamentos {
     feriasTipoAfastamento: {
     idTipoAfastamento: number;
     descricao: string;
+    codigo: number;
   };
 }

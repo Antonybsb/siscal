@@ -16,7 +16,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <button class="btnBuscar" mat-raised-button (click)="buscarAfastamentosPorAnoESigla()">
+      <button class="btnBuscar" mat-raised-button>
         Buscar
       </button>
 
@@ -60,49 +60,48 @@
   </mat-card>
 
   
-<div class="container">
-
-  <mat-card class="cardTable">
-    <mat-card-content>
-      <div class="table-container">
-        <ng-container *ngFor="let mes of meses">
-          <thead>
-            <tr>
-              <!-- Defina o número total de células (dias) no mês -->
-              <th [attr.colspan]="mes.semanas.flat().length + 1">
-                {{ mes.nome }}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>NOME</td>
-              <ng-container *ngFor="let semana of mes.semanas">
-                <ng-container *ngFor="let dia of semana">
-                  <td>{{ dia.diaSemana }}</td>
-                </ng-container>
-              </ng-container>
-            </tr>
-            <ng-container *ngFor="let nomeServidor of getNomeServidores">
+  <div class="container">
+    <mat-card class="cardTable">
+      <mat-card-content>
+        <div class="table-container">
+          <ng-container *ngFor="let mes of meses">
+            <thead>
               <tr>
-                <td>{{ nomeServidor }}</td>
+                <!-- Defina o número total de células (dias) no mês -->
+                <th [attr.colspan]="mes.semanas.flat().length + 1">
+                  {{ mes.nome }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>NOME</td>
                 <ng-container *ngFor="let semana of mes.semanas">
                   <ng-container *ngFor="let dia of semana">
-                    <td [ngStyle]="{ 'background-color': getAfastamentoColor(dia.dia, nomeServidor) }">
-                      {{ dia.dia }}
-                      <br />
-                      {{ getTipoAfastamento(dia.dia, nomeServidor) }}
-                    </td>
+                    <td>{{ dia.diaSemana }}</td>
                   </ng-container>
                 </ng-container>
               </tr>
-            </ng-container>
-          </tbody>
-        </ng-container>
-      </div>
-    </mat-card-content>
-  </mat-card>
-</div>
+              <ng-container *ngFor="let nomeServidor of getNomeServidores">
+                <tr>
+                  <td>{{ nomeServidor }}</td>
+                  <ng-container *ngFor="let semana of mes.semanas">
+                    <ng-container *ngFor="let dia of semana">
+                      <td>
+                        {{ dia.dia }}
+                        <br />
+                      </td>
+                    </ng-container>
+                  </ng-container>
+                </tr>
+              </ng-container>
+            </tbody>
+          </ng-container>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
   
   
   
