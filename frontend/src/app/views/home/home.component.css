@@ -6,11 +6,7 @@
     padding: 20px;
 } */
 
-table {
-    display: flex;
-    flex-direction: row;
-    margin-top: 10px;
-}
+
 
 /* table, th, td{
     font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -56,6 +52,14 @@ th {
     background-color: #0476D9 !important;
     color: white !important;
 }
+
+/* .table-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+} */
 
 .conteudoAfastamentos {
     display: flex;

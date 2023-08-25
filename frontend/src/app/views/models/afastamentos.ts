@@ -1,14 +1,14 @@
 export interface Afastamentos {
-    codigo: number;
-    idTipoAafastamento: string;
+    
+    idTipoAfastamento: string;
     servidor: number;
     exercicioAno: number;
     gozoDataInicio: Date;
     gozoDataFim: Date;
     statusHomologacao: string;
+    descricao: string;
     feriasTipoAfastamento: {
     idTipoAfastamento: number;
     descricao: string;
-    codigo: number;
   };
 }

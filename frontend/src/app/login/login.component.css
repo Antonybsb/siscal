@@ -1,0 +1,97 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 93vh;
+    overflow: hidden;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    
+
+}
+
+.container {
+    margin-top: 150px;
+    display: flex;
+    flex-direction: row;
+    width: 900px;
+    
+}
+
+
+.left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    width: 60%;
+    height: 500px;
+    background-image: linear-gradient( to bottom, #04D9D9, #049DD9, #0487D9, #0476D9);
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    z-index: 1;
+    
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 1;
+    
+}
+
+.content h3 {
+    font-size: 42px;
+    font-weight: 500;
+    color: #fff;
+    
+}
+
+.content h4 {
+    font-size: 22px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.content p {
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #05004d;
+}
+
+.right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    
+    width: 40%;
+    background-color: #fff;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border: solid 1px #0476D9;
+    z-index: 1;
+}
+
+.right-content {
+    width: 100%;
+    height: 65%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.right-content h2 {
+    font-size: 32px;
+    font-weight: 500;
+    color: #0476D9;
+    margin-bottom: 30px;
+    margin-left: 42px;
+
+}
+
+.right-content label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #0476D9;
+}

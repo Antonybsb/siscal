@@ -23,23 +23,17 @@ public class FeriasAfastamentoService {
         return feriasAfastamentoRepository.findAll();
     }
 
-    public List<FeriasAfastamento> buscarAfastamentosPorMatricula(int matricula) {
-        return feriasAfastamentoRepository.findByMatricula(matricula);
+    public List<FeriasAfastamento> buscarAfastamentosPorMatricula(int servidor) {
+        return feriasAfastamentoRepository.findByServidor(servidor);
     }
 
     public List<FeriasAfastamento> buscarAfastamentosPorServidorEAno(int servidor, int ano) {
-        return feriasAfastamentoRepository.findByServidorAndExercicioAno(servidor, ano);
+        return feriasAfastamentoRepository.findByAfastamentosAnoAndServidor(servidor, ano);
     }
 
-    public List<FeriasAfastamento> buscarAfastamentosPorAnoECodigo(int ano, BigDecimal codigo) {
-        return feriasAfastamentoRepository.buscarAfastamentosPorAnoECodigo(ano, codigo);
+    public List<FeriasAfastamento> buscarAfastamentosPorAnoECodigo(int exercicioAno, BigDecimal codigo) {
+        return feriasAfastamentoRepository.buscarAfastamentosPorAnoECodigo(exercicioAno, codigo);
     }
-
-
-
-
-
-
 
 
 

@@ -1,7 +1,5 @@
 package com.api.siscal.dtos;
 
-import jakarta.persistence.Column;
-
 import java.math.BigDecimal;
 
 public class FeriasServidorDTO {

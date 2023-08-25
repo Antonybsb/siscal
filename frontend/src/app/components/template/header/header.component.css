@@ -1,7 +1,8 @@
 
-.container {
+.nav {
     justify-content: space-between;
     background-image: linear-gradient(to right, #04D9D9, #049DD9, #0487D9, #0476D9) !important;
+    z-index: 1;
 }
 
 span {

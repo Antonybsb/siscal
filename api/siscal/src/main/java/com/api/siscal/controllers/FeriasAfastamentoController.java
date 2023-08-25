@@ -32,9 +32,9 @@ public class FeriasAfastamentoController {
         }
     }
 
-    @GetMapping("/{matricula}/afastamentos")
-    public ResponseEntity<List<FeriasAfastamento>> buscarAfastamentosPorMatricula(@PathVariable int matricula) {
-        List<FeriasAfastamento> afastamentos = feriasAfastamentoService.buscarAfastamentosPorMatricula(matricula);
+    @GetMapping("/{servidor}/afastamentos")
+    public ResponseEntity<List<FeriasAfastamento>> buscarAfastamentosPorServidor(@PathVariable int servidor) {
+        List<FeriasAfastamento> afastamentos = feriasAfastamentoService.buscarAfastamentosPorMatricula(servidor);
 
         //Verifica se há afastamentos para a matrícula fornecida
         if (afastamentos.isEmpty()) {
@@ -56,9 +56,9 @@ public class FeriasAfastamentoController {
         }
     }
 
-    @GetMapping("/{ano}/afastamentos/{codigo}")
-    public ResponseEntity<List<FeriasAfastamento>> buscarAfastamentosPorAnoECodigo(@PathVariable int ano, @PathVariable BigDecimal codigo) {
-        List<FeriasAfastamento> afastamentos = feriasAfastamentoService.buscarAfastamentosPorAnoECodigo(ano, codigo);
+    @GetMapping("/{exercicioAno}/afastamentos/{codigo}")
+    public ResponseEntity<List<FeriasAfastamento>> buscarAfastamentosPorAnoECodigo(@PathVariable int exercicioAno, @PathVariable BigDecimal codigo) {
+        List<FeriasAfastamento> afastamentos = feriasAfastamentoService.buscarAfastamentosPorAnoECodigo(exercicioAno, codigo);
 
         if (afastamentos.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -66,8 +66,6 @@ public class FeriasAfastamentoController {
             return ResponseEntity.ok(afastamentos);
         }
     }
-
-
 
 
 

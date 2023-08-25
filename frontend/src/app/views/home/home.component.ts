@@ -15,22 +15,28 @@ interface Mes {
   semanas: DiaSemana[][];
 }
 
+
+
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  afastamentos: Afastamentos[] = [];
   meses!: Mes[];
   anos: number[] = [];
   siglas: string[] = ['DTI', 'DTI/DDS', 'DTI/DO', 'DTI/DST'];
   anoSelecionado!: number;
   siglaSelecionada: string = "";
   getNomeServidores: string[] = [];
-  codigoDepartamentoSelecionado: string = "";
+  codigoDepartamentoSelecionado: number = 0;
   servidoresDoDepartamento: string[] = [];
   mesesGerados: number[] = [];
+  // afastamentosAgendados: Afastamentos[] = [];
+  afastamentosPorServidor: { codigo: number, afastamentos: Afastamentos[] }[] = [];
+  afastamentos: Afastamentos[] = [];
+  erroAoBuscarAfastamentos = false;
+
 
   constructor(private selectService: SelectService) {
   }
@@ -39,10 +45,15 @@ export class HomeComponent implements OnInit {
     this.carregarAnos();
     this.carregarNomeServidores();
     this.onAnoSelecionadoChange(); // Para carregar os meses iniciais
-    
+    // this.carregarAfastamentosPorDepartamento();
 
     const codigoDepartamentoInicial = "415006200"; // Coloque aqui o código do departamento inicial como string
     this.carregarServidoresPorSigla(codigoDepartamentoInicial);
+
+    this.getNomeServidores.forEach((nomeServidor) => {
+      const codigoServidor = parseInt(nomeServidor.split('-')[0], 10);
+      this.buscarAfastamentosPorServidorEano(codigoServidor, this.anoSelecionado);
+    });
 
    
   }
@@ -97,19 +108,20 @@ export class HomeComponent implements OnInit {
     if (this.siglaSelecionada) {
       // Verificar a opção selecionada e atribuir o código correto
       if (this.siglaSelecionada === "DTI") {
-        this.codigoDepartamentoSelecionado = "415006100";
+        this.codigoDepartamentoSelecionado = 415006100;
       } else if (this.siglaSelecionada === "DTI/DDS") {
-        this.codigoDepartamentoSelecionado = "415006200";
+        this.codigoDepartamentoSelecionado = 415006200;
       } else if (this.siglaSelecionada === "DTI/DO") {
-        this.codigoDepartamentoSelecionado = "415006400";
+        this.codigoDepartamentoSelecionado = 415006400;
       } else if (this.siglaSelecionada === "DTI/DST") {
-        this.codigoDepartamentoSelecionado = "415006500";
+        this.codigoDepartamentoSelecionado = 415006500;
       } else {
         // Opção inválida, você pode tratar esse caso se desejar
-        this.codigoDepartamentoSelecionado = "";
+        this.codigoDepartamentoSelecionado = 0;
       }
       this.carregarServidoresPorSigla(this.codigoDepartamentoSelecionado.toString());
       this.carregarNomeServidores();
+
     }
   }
 
@@ -123,24 +135,39 @@ export class HomeComponent implements OnInit {
     // Verifica se tanto o ano como a sigla estão selecionados
     if (this.anoSelecionado && this.siglaSelecionada) {
       // Chama a função para buscar os afastamentos com base no ano e sigla selecionados
-       // this.buscarAfastamentosPorAnoESigla();
+      //  this.carregarAfastamentosPorDepartamento();
       
     }
   }
 
   carregarNomeServidores() {
-    // Converte a string para número usando parseInt ou Number
-    const codigoDepartamentoSelecionadoNumero = parseInt(this.codigoDepartamentoSelecionado, 10);
-  
-    if (!isNaN(codigoDepartamentoSelecionadoNumero)) {
-      this.selectService.getNomeServidores(codigoDepartamentoSelecionadoNumero).subscribe((nomes) => {
+    if (this.codigoDepartamentoSelecionado) {
+      this.selectService.getNomeServidores(this.codigoDepartamentoSelecionado).subscribe((nomes) => {
         this.getNomeServidores = nomes.sort();
-        console.log("Nomes dos servidores:", this.getNomeServidores); 
+        console.log('Nomes dos servidores:', this.getNomeServidores);
+  
+        // Inicializa a estrutura de dados para associar códigos de servidor aos afastamentos
+        this.afastamentosPorServidor = this.getNomeServidores.map((nomeServidor) => {
+          const codigoServidor = parseInt(nomeServidor.split('-')[0], 10);
+          return {
+            codigo: codigoServidor,
+            afastamentos: [],
+          };
+        });
+  
+        // Agora, a cada nome de servidor, chame a função para buscar os afastamentos
+        this.getNomeServidores.forEach((nomeServidor) => {
+          const codigoServidor = parseInt(nomeServidor.split('-')[0], 10);
+          if (this.anoSelecionado) { // Verifique se o ano está definido
+            this.buscarAfastamentosPorServidorEano(codigoServidor, this.anoSelecionado);
+          }
+        });
       });
     }
   }
   
- 
+  
+  
   carregarServidoresPorSigla(sigla: string): void {
     this.selectService.getServidoresPorSigla(sigla).subscribe(
       (servidores: string[]) => {
@@ -151,6 +178,27 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+
+  buscarAfastamentosPorServidorEano( servidor: number, ano: number) {
+    this.selectService.buscarAfastamentosPorServidorEano(servidor, ano)
+    .subscribe(
+      afastamentos => {
+        this.afastamentos = afastamentos;
+        console.log('Afastamentos encontrados', afastamentos)
+        this.erroAoBuscarAfastamentos = false;
+      },
+      erro => {
+        console.error('Erro ao buscar afastamentos:', erro);
+        this.erroAoBuscarAfastamentos = true;
+      }
+    );
+  }
   
 
-}
+  }
+  
+  
+  
+
+  
+

@@ -56,14 +56,6 @@ public class FeriasServidorController {
         return ResponseEntity.ok(nomes);
     }
 
-//    @GetMapping("/{servidorId}/tipos-afastamentos")
-//    public ResponseEntity<List<String>> obterTiposAfastamentos(@PathVariable int servidorId) {
-//        List<String> tiposAfastamentos = feriasServidorService.obterTiposAfastamentosPorServidor(servidorId);
-//        return ResponseEntity.ok(tiposAfastamentos);
-//    }
 
-
-
-
-    }
+}
 

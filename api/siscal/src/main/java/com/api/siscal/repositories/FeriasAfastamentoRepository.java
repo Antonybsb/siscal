@@ -12,16 +12,24 @@ import java.util.List;
 
 @Repository
 public interface FeriasAfastamentoRepository extends JpaRepository<FeriasAfastamento, FeriasAfastamentoPK> {
-    @Query("SELECT af FROM FeriasAfastamento af WHERE af.servidor = :matricula")
-    List<FeriasAfastamento> findByMatricula(@Param("matricula") int matricula);
+    @Query("SELECT af FROM FeriasAfastamento af WHERE af.servidor = :servidor")
+    List<FeriasAfastamento> findByServidor(@Param("servidor") int servidor);
 
     @Query("SELECT afastamento FROM FeriasAfastamento afastamento WHERE afastamento.servidor = :servidor AND afastamento.exercicioAno = :ano")
-    List<FeriasAfastamento> findByServidorAndExercicioAno(@Param("servidor") int servidor, @Param("ano") int ano);
+    List<FeriasAfastamento> findByAfastamentosAnoAndServidor(@Param("servidor") int servidor, @Param("ano") int ano);
 
-    @Query("SELECT a FROM FeriasAfastamento a JOIN a.feriasTipoAfastamento fta JOIN FeriasServidor fs ON a.servidor = fs.servidor WHERE a.exercicioAno = :ano AND fs.codigo = :codigo")
-    List<FeriasAfastamento> buscarAfastamentosPorAnoECodigo(@Param("ano") int ano, @Param("codigo") BigDecimal codigo);
-
-
-
+    @Query("SELECT a FROM FeriasAfastamento a JOIN a.feriasTipoAfastamento fta JOIN FeriasServidor fs ON a.servidor = fs.servidor WHERE a.exercicioAno = :exercicioAno AND fs.codigo = :codigo")
+    List<FeriasAfastamento> buscarAfastamentosPorAnoECodigo(@Param("exercicioAno") int exercicioAno, @Param("codigo") BigDecimal codigo);
 
 }
+
+
+
+
+
+
+
+
+
+
+
