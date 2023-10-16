@@ -26,10 +26,12 @@ import { HeaderComponent } from "./components/template/header/header.component";
 import { HomeComponent } from "./views/home/home.component";
 import { LoginComponent } from "./login/login.component";
 import { BackgroundComponent } from './background/background.component';
+import { CalendarioComponent } from './components/calendario/calendario/calendario.component';
+import { SelectComponent } from './components/select/select/select.component';
 
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, HomeComponent, LoginComponent, BackgroundComponent],
+  declarations: [AppComponent, HeaderComponent, HomeComponent, LoginComponent, BackgroundComponent, CalendarioComponent, SelectComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

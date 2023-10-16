@@ -1,0 +1,11 @@
+<p>select works!</p>
+<form>
+    <mat-form-field>
+      <mat-label>Departamento</mat-label>
+      <mat-select [(ngModel)]="siglaSelecionada" name="siglaSelecionada" (selectionChange)="onSiglaSelecionadaChange()">
+          <mat-option *ngFor="let sigla of siglas" [value]="sigla">
+            {{ sigla }}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+  </form>

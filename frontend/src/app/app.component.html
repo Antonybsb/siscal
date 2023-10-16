@@ -1,5 +1,7 @@
-<app-header></app-header>
-<app-home></app-home>
+<!-- <app-header></app-header>
+<app-home></app-home> -->
+<app-select (siglaSelecionadaChange)="siglaSelecionada = $event"></app-select>
+<app-calendario [siglaSelecionada]="siglaSelecionada"></app-calendario>
 
 
 <!-- <app-login></app-login> -->

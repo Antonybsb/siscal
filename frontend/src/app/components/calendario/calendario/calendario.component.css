@@ -1,0 +1,22 @@
+table, th, td {
+    font-size: 12px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    
+    
+  }
+
+  mat-card-content {
+    display: flex; 
+    flex-direction: row; 
+    flex-wrap: wrap;
+    
+  }
+
+  .meses {
+    margin: auto;
+    margin-top: 5px;
+    text-align: center;
+    border-top: 1px solid black;
+    
+  }
