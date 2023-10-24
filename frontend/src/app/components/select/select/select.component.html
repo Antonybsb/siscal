@@ -1,11 +1,28 @@
-<p>select works!</p>
-<form>
-    <mat-form-field>
-      <mat-label>Departamento</mat-label>
-      <mat-select [(ngModel)]="siglaSelecionada" name="siglaSelecionada" (selectionChange)="onSiglaSelecionadaChange()">
-          <mat-option *ngFor="let sigla of siglas" [value]="sigla">
-            {{ sigla }}
-          </mat-option>
-        </mat-select>
-    </mat-form-field>
-  </form>
+
+  <div class="navigate">
+      <div class="selectTotal vertical-center">
+          <mat-form-field>
+            <mat-label>Ano</mat-label>
+            <mat-select [(ngModel)]="anoSelecionado" name="anoSelecionado" (selectionChange)="onAnoSelecionadoChange()">
+              <mat-option *ngFor="let ano of anos" [value]="ano">{{ ano }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+    
+          <mat-form-field>
+            <mat-label>Departamento</mat-label>
+            <mat-select [(ngModel)]="siglaSelecionada" name="siglaSelecionada" (selectionChange)="onSiglaSelecionadaChange()">
+              <mat-option *ngFor="let sigla of siglas" [value]="sigla">
+                {{ sigla }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+      <div class="afastamentos">
+        <mat-list role="list" class="horizontal-list align-end">
+          <mat-list-item role="listitem"  *ngFor="let afastamentos of tiposAfastamentos; let i = index" [style.border-bottom-color]="getBorderColor(i)" class="border-list">
+            {{ afastamentos}}
+          </mat-list-item>
+        </mat-list>
+        </div>
+  </div>
+

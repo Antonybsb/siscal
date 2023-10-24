@@ -2,7 +2,7 @@ table, th, td {
     font-size: 12px;
     border: 1px solid black;
     border-collapse: collapse;
-    
+    height: 3px;
     
   }
 
@@ -19,4 +19,10 @@ table, th, td {
     text-align: center;
     border-top: 1px solid black;
     
+  }
+
+  .cell {
+    height: 20px;
+    vertical-align: middle;
+    text-align: center;
   }

@@ -1,24 +1,32 @@
 <mat-card>
   <mat-card-content>
     <div class="meses" *ngFor="let mes of meses">
-      <h2>{{ mes.name | uppercase }}</h2>
+      <h2>{{ mes.nome | uppercase }}</h2>
       <table>
         <tr>
-          <td>Nome</td>
-          <td style="text-align: center;" *ngFor="let dia of mes.days">{{ mes.daysWeek[(dia + mes.startDay - 1) % 7].charAt(0) | uppercase }}</td>
+          <td class="cell">Nome</td>
+          <ng-container *ngFor="let semana of mes.semanas">
+            <ng-container *ngFor="let dia of semana">
+              <td>{{ dia.diaSemana }}</td>
+            </ng-container>
+          </ng-container>
         </tr>
         <ng-container *ngFor="let nome of nomes">
           <tr>
             <td> {{ nome }} </td>
-            <td *ngFor="let dia of mes.days">
-              <div>
-                <p style="text-align: center;">{{ dia }}</p>
-              </div>
-            </td>
+            <ng-container *ngFor="let semana of mes.semanas">
+              <ng-container *ngFor="let dia of semana">
+                <td>
+                  {{ dia.dia }} <!-- Use 'dia' para representar o dia do mês -->
+                </td>
+              </ng-container>
+            </ng-container>
           </tr>
         </ng-container>
       </table>
     </div>
   </mat-card-content>
 </mat-card>
-<!-- caceta -->
+
+<!-------------------------------------------------------------------------------------------------------------------------->
+

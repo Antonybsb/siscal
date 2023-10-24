@@ -1,0 +1,44 @@
+.navigate {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.selectTotal {
+  width: 30%;
+  align-content: baseline;
+}
+
+mat-form-field {
+  margin-left: -5px;
+  margin-right: 20px;
+  margin-top: 10px;
+
+}
+
+.vertical-center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start; 
+}
+
+.afastamentos {
+  width: 70%;
+  display: flex; 
+  justify-content: flex-end; 
+}
+
+.horizontal-list {
+  display: flex;
+  flex-direction: row;
+  margin-right: 30px;
+  margin-top: 0;
+  max-width: 100%; 
+}
+
+.border-list {
+  border-bottom: solid 4px;
+  margin-right: 20px;
+}
