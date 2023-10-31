@@ -25,14 +25,14 @@ export class GerarMesesService {
         const data = new Date(ano, mes, dia);
         const diaSemanaNumero = data.getDay(); // Dia da semana em formato numérico (0 a 6)
         const diaSemana = diasDaSemana[diaSemanaNumero]; // Obtém o nome do dia da semana (D, S, T, Q, etc.)
-        semana.push({ dia, diaSemana });
+        semana.push({ data, dia, diaSemana });
         if (data.getDay() === 6 || dia === numeroDias) {
           semanas.push(semana);
           semana = [];
         }
         dia++;
       }
-      meses.push({ nome: nomeMes, semanas });
+      meses.push({ nome: nomeMes, semanas, colspan: 0 });
     }
     return meses;
   }

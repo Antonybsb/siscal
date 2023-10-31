@@ -1,32 +1,38 @@
-<mat-card>
-  <mat-card-content>
-    <div class="meses" *ngFor="let mes of meses">
-      <h2>{{ mes.nome | uppercase }}</h2>
-      <table>
-        <tr>
-          <td class="cell">Nome</td>
-          <ng-container *ngFor="let semana of mes.semanas">
-            <ng-container *ngFor="let dia of semana">
-              <td>{{ dia.diaSemana }}</td>
-            </ng-container>
-          </ng-container>
-        </tr>
-        <ng-container *ngFor="let nome of nomes">
+<div class="tabelaMes">
+  <mat-card *ngFor="let mes of meses" class="example-card">
+    <mat-card-content>
+      <div class="meses">
+        <table>
+          <th [attr.colspan]="calculateColspan(mes.semanas)">{{ mes.nome | uppercase }}</th>
           <tr>
-            <td> {{ nome }} </td>
+            <td class="cell">Nome</td>
             <ng-container *ngFor="let semana of mes.semanas">
               <ng-container *ngFor="let dia of semana">
-                <td>
-                  {{ dia.dia }} <!-- Use 'dia' para representar o dia do mês -->
-                </td>
+                <td>{{ dia.diaSemana }}</td>
               </ng-container>
             </ng-container>
           </tr>
-        </ng-container>
-      </table>
-    </div>
-  </mat-card-content>
-</mat-card>
-
-<!-------------------------------------------------------------------------------------------------------------------------->
-
+          <ng-container *ngFor="let nome of nomes">
+            <tr>
+              <td> {{ nome }} </td>
+              <ng-container *ngFor="let semana of mes.semanas">
+                <ng-container *ngFor="let dia of semana">
+                  <td [style.background-color]="dia.cor">
+                    {{ dia.dia }}
+                  </td>
+                </ng-container>
+              </ng-container>
+            </tr>
+          </ng-container>
+        </table>
+      </div>
+    </mat-card-content>
+    <ng-container *ngFor="let afastamento of afastamentos">
+      <tr *ngIf="afastamento.exercicioAno === anoSelecionado">
+        <td>{{ afastamento.idTipoAfastamento }}</td>
+        <td>{{ afastamento.gozoDataInicio | date }}</td>
+        <td>{{ afastamento.gozoDataFim | date }}</td>
+      </tr>
+    </ng-container>
+  </mat-card>
+</div>

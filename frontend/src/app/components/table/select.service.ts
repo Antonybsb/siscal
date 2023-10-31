@@ -40,6 +40,10 @@ export class SelectService {
     
   }
 
+  public getBaseUrl(): string {
+    return this.baseUrl;
+  }
+
 
 
   constructor(private http: HttpClient) {}

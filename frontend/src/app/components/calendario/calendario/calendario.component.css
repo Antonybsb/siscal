@@ -1,28 +1,36 @@
 table, th, td {
-    font-size: 12px;
+    font-size: 10px;
     border: 1px solid black;
     border-collapse: collapse;
     height: 3px;
     
   }
 
-  mat-card-content {
-    display: flex; 
-    flex-direction: row; 
-    flex-wrap: wrap;
-    
-  }
+  
+
 
   .meses {
     margin: auto;
     margin-top: 5px;
     text-align: center;
-    border-top: 1px solid black;
+    /* border: 1px solid black; */
     
   }
 
-  .cell {
-    height: 20px;
-    vertical-align: middle;
-    text-align: center;
+  .tabelaMes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
+  
+  .example-card {
+    width: 32%;
+    height: auto;
+    margin: 5px 10px 5px 10px;
+    align-items: center;
+  }
+  
+
